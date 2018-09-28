@@ -1,0 +1,162 @@
+﻿@model ShopApp.Models.tblOrder
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <h4>Order Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderName) : @Html.DisplayFor(model => model.OrderName)
+        </dt>
+
+        @*<dd>
+       
+        </dd>*@
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.OrderDate) : @Html.DisplayFor(model => model.OrderDate)*@
+            @Html.DisplayNameFor(model => model.OrderDate) : @String.Format("{0:MM/dd/yyyy}", Model.OrderDate);
+        </dt>
+
+        @*<dd>
+          
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentType) : @Html.DisplayFor(model => model.PaymentType)
+        </dt>
+
+        @*<dd>
+    
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status) : @Html.DisplayFor(model => model.Status)
+        </dt>
+
+        @*<dd>
+      
+        </dd>*@
+
+        <dt> 
+            @Html.DisplayNameFor(model => model.CustomerFirstName) : @Html.DisplayFor(model => model.CustomerFirstName)
+        </dt>
+
+        @*<dd>
+         
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerLastName) : @Html.DisplayFor(model => model.CustomerLastName)
+        </dt>
+
+        @*<dd>
+          
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyName) : @Html.DisplayFor(model => model.CompanyName)
+        </dt>
+
+        @*<dd>
+          
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Country) : @Html.DisplayFor(model => model.Country)
+        </dt>
+
+        @*<dd>
+      
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Street) : @Html.DisplayFor(model => model.Street)
+        </dt>
+
+        @*<dd>
+          
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Apartment) : @Html.DisplayFor(model => model.Apartment)
+        </dt>
+
+        @*<dd>
+      
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Town) : @Html.DisplayFor(model => model.Town)
+        </dt>
+
+        @*<dd>
+         
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.State) : @Html.DisplayFor(model => model.State)
+        </dt>
+
+        @*<dd>
+          
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ZIP) : @Html.DisplayFor(model => model.ZIP)
+        </dt>
+
+        @*<dd>
+       
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone) : @Html.DisplayFor(model => model.Phone)
+        </dt>
+
+        @*<dd>
+          
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email) : @Html.DisplayFor(model => model.Email)
+        </dt>
+
+        @*<dd>
+       
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderNote) : @Html.DisplayFor(model => model.OrderNote)
+        </dt>
+
+        @*<dd>
+          
+        </dd>*@
+
+    </dl>
+</div>
+<table class="table table-striped table-responsive">
+    <tr>
+        <th>Product Name</th>
+        <th>Qauntity</th>
+        <th>Price</th>
+    </tr>
+    @foreach (var item in Model.tblOrderDetails)
+    {
+        <tr>
+            <th>@item.tblProduct.ProductName</th>
+            <th>@item.Quantity</th>
+            <th>@item.Price</th>
+        </tr>
+    }
+</table>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.OrderId }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6a6cddd22fff44ce8fdd330a72be0638" Name="Diagram1">
+        <EntityTypeShape EntityType="ShopModel.tblCategory" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopModel.tblColor" Width="1.5" PointX="3.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopModel.tblModel" Width="1.5" PointX="3.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopModel.tblNew" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopModel.tblProduct" Width="1.5" PointX="6" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopModel.tblStorage" Width="1.5" PointX="3.75" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopModel.tblUser" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="ShopModel.FK_tblProduct_tblCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopModel.FK_tblProduct_tblColor" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopModel.FK_tblProduct_tblModel" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopModel.FK_tblNews_tblUser" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopModel.FK_tblProduct_tblStorage" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopModel.FK_tblProduct_tblUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ShopModel.tblOrder" Width="1.5" PointX="6" PointY="10" />
+        <EntityTypeShape EntityType="ShopModel.tblOrderDetail" Width="1.5" PointX="8.25" PointY="4.125" />
+        <AssociationConnector Association="ShopModel.FK_tblOrderDetails_tblOrder" />
+        <AssociationConnector Association="ShopModel.FK_tblOrderDetails_tblProduct" />
+        <EntityTypeShape EntityType="ShopModel.tblContactU" Width="1.5" PointX="0.75" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

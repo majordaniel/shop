@@ -1,0 +1,18 @@
+﻿@using ShopApp.Models
+@model List<tblCategory>
+
+
+    @{
+        foreach (var item in Model)
+        {
+            <ul>
+                <li>
+                    @*<a href="#">@item.Name</a>*@
+                    @Html.ActionLink(@item.Name, "Index", "Products", new { page =1, category = @item.CategoryId }, null)
+
+                </li>
+           </ul>
+         }
+   }
+
+        

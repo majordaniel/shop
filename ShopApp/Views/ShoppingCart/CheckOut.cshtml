@@ -1,0 +1,313 @@
+﻿@using ShopApp.Models
+
+
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+
+
+  <!-- Checkout -->
+<section class="section-wrap checkout">
+    <div class="container relative">
+        <div class="row">
+
+         
+
+            <div class="ecommerce col">
+
+             @* <form name="checkout" class="checkout ecommerce-checkout row"> *@
+
+            @using (Html.BeginForm("ProcessOrder", "ShoppingCart", FormMethod.Post, new { id = "CheckOutForm", @class= "checkout ecommerce-checkout row" }))
+            {
+
+
+
+                 <!-- customers Details -->
+                 <div class="col-lg-7" id="customer_details">
+                     <div>
+                         <h2 class="uppercase mb-30">billing details</h2>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <label for="billing_first_name">
+                                     First Name
+
+                                 </label>
+                                 <input type="text" class="input-text" placeholder="Enter Your First Name" value="" name="billing_first_name" id="billing_first_name">
+
+                             </div>
+                             <div class="col-md-6">
+                                 <label for="billing_last_name">
+                                     Last Name
+
+                                 </label>
+                                 <input type="text" class="input-text"  placeholder="Enter your Last Name" value="" name="billing_last_name" id="billing_last_name">
+
+                             </div>
+                         </div> <!-- end name / last name -->
+                         <p class="form-row form-row-wide" id="billing_company_field">
+                             <label for="billing_company">Company Name</label>
+                             <input type="text" class="input-text" placeholder="Enter company Name" value name="billing_company" id="billing_company">
+                         </p>
+
+                         <p class="form-row form-row-wide" id="billing_country_field">
+                             <label for="billing_country">
+                                 Country
+
+                             </label>
+                             <select name="billing_country" id="billing_country" class="country_to_state country_select" title="Country *">
+                                 <option>Select a country…</option>
+                                 <option value="AF">Afghanistan</option>
+                                 <option value="AX">Åland Islands</option>
+                                 <option value="AL">Albania</option>
+                                 <option value="DZ">Algeria</option>
+
+
+                             </select>
+                         </p>
+
+                         <p class="form-row form-row-wide" id="billing_address_1_field">
+                             <label for="billing_address_1">
+                                 Address
+
+                             </label>
+                             <input type="text" class="input-text" placeholder="Street address" value="" name="billing_address_1" id="billing_address_1">
+                         </p>
+                         <p class="form-row form-row-wide address-field" id="billing_address_2_field">
+                             <input type="text" class="input-text" placeholder="Apartment, suite, unit etc. (optional)" value="" name="billing_address_2" id="billing_address_2">
+                         </p>
+                         <p class="form-row form-row-wide" id="billing_city_field" data-o_class="form-row form-row-wide address-field validate-required">
+                             <label for="billing_city">
+                                 Town / City
+
+                             </label>
+                             <input type="text" class="input-text" placeholder="Town / City" value="" name="billing_city" id="billing_city">
+                         </p>
+                         <p class="form-row form-row-first" id="billing_state_field">
+                             <label for="billing_state">State / County</label>
+                             <input type="text" class="input-text" placeholder="" value="" name="billing_state" id="billing_state">
+                         </p>
+                         <p class="form-row form-row-last" id="billing_postcode_field">
+                             <label for="billing_postcode">
+                                 Postcode / ZIP
+
+                             </label>
+                             <input type="text" class="input-text" placeholder="" value="" name="billing_postcode" id="billing_postcode">
+                         </p>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <p class="form-row form-row-last" id="billing_phone_field">
+                                     <label for="billing_phone">
+                                         Phone
+
+                                     </label>
+                                     <input type="text" class="input-text" placeholder="" value="" name="billing_phone" id="billing_phone">
+                                 </p>
+                             </div>
+                             <div class="col-md-6">
+                                 <p class="form-row form-row-first" id="billing_email_field">
+                                     <label for="billing_email">
+                                         Email Address
+
+                                     </label>
+                                     <input type="text" class="input-text" placeholder="" value="" name="billing_email" id="billing_email">
+                                 </p>
+                             </div>
+                         </div>
+                     </div>
+
+                     <div>
+                         <div class="ecommerce-shipping-fields">
+                             <input type="checkbox" id="ship-to-different-address-checkbox" class="input-checkbox" name="ship_to_different_address" value="1">
+                             <label for="ship-to-different-address-checkbox" class="checkbox">Ship to a different address</label>
+                         </div>
+                         <p class="form-row notes" id="order_comments_field">
+                             <label for="order_comments">Order Notes</label>
+                             <textarea name="order_comments" class="input-text" id="order_comments" placeholder="Notes about your order, e.g. special notes for delivery." rows="2" cols="6"></textarea>
+                         </p>
+                     </div>
+                 </div> 
+                  <!-- end col -->
+
+                  <!-- Your Order -->
+                <div class="col-lg-5">
+                        <div class="order-review-wrap ecommerce-checkout-review-order" id="order_review">
+                            <h2 class="uppercase">Your Order</h2>
+
+                            @{
+                                if (Session["Cart"] != null)
+                                {
+                                        <table class="shop_table cart table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="product-name" colspan="2">Product</th>
+                                                    <th class="product-price">Price</th>
+                                                    <th class="product-quantity">Quantity</th>
+                                                    <th class="product-subtotal">Total</th>
+                                                    <th class="product-subtotal">Remove Choice</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+
+                                                @foreach (var cart in (List<CartViewModel>)Session["Cart"])
+                                                {
+                                                    <tr class="cart_item">
+                                                        <td class="product-thumbnail">
+
+                                                            <a href="@Url.Action("Details","ShoppingCart",new { id= cart.Product.ProductId},null)" class="product__link">
+
+                                                                <img src='@Url.Content("~/img/shop/"+@cart.Product.Image)' alt="" class="product__img">
+                                                  
+                                                            </a>
+                                                          </td>
+                                                        <td class="product-name">
+                                                            <a href="#">@cart.Product.ProductName</a>
+                                                            <ul>
+                                                                <li>Size: @cart.Product.tblModel.Model</li>
+                                                                <li>Color: @cart.Product.tblColor.Color</li>
+                                                            </ul>
+                                                        </td>
+                                                        <td class="product-price">
+                                                            <span class="amount" id="Prz">₦@cart.Product.Price</span>
+                                                        </td>
+                                                        <td class="product-quantity">
+                                                            <div class="quantity buttons_added">
+                                                                <input type="number" step="1" min="0" readonly id="QtySelected" name="QtySelected" value="@cart.Quantity" title="Qty" class="input-text qty text">
+                                                             
+                                                            </div>
+                                                        </td>
+                                                        <td class="product-subtotal">
+                                                            <span class="amount">₦@(String.Format("{0:N0}", cart.Quantity * cart.Product.Price))</span>
+                                                           
+                                                        </td>
+                                                        <td class="product-remove">
+                                                            <a href="#" class="remove" title="Remove this item">
+                                                                <span> @Html.ActionLink("Remove Choice", "Delete", "ShoppingCart", new { id = cart.Product.ProductId }, new { onclick = "return confirm('Are you ready to Remove the Item');" })</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+
+                                        </table>
+
+                                        <div class="cart_totals">
+                                            <h2 class="uppercase mb-20">Cart Totals</h2>
+                                            <table class="table shop_table">
+                                                <tbody>
+                                                    <tr class="cart-subtotal">
+                                                        <th>Cart Subtotal</th>
+                                                        <td>
+                                                            @if (Session["Cart"] == null)
+                                                            {
+                                                                Response.Redirect(Url.Content("/Home/Index"));
+                                                            }
+
+                                                            @{
+                                                                List<CartViewModel> temp = (List<CartViewModel>)Session["Cart"];
+                                                                var TotalAmt = temp.Sum(x => x.Quantity * x.Product.Price);
+
+                                                                if (Session["Cart"] == null)
+                                                                {
+                                                                    Response.Redirect(Url.Content("/Home/Index"));
+                                                                }
+                                                            }
+                                                            <span class="amount" id="SubAmt">₦@TotalAmt</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="shipping">
+                                                        <th>Shipping</th>
+                                                        <td>
+                                                            <span>Free Shipping</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="order-total">
+                                                        <th>Order Total</th>
+                                                        <td>
+                                                            <strong><span class="amount">₦@TotalAmt</span></strong>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                              }
+
+                                else
+                                {
+                                    <h4> No Item Selected!!! </h4>
+                                }
+
+
+                            }
+                             @*end of the check empty condition*@
+
+                            <!-- Payments Details -->
+                            <div id="payment" class="ecommerce-checkout-payment">
+                                <h2 class="uppercase">Payment Method</h2>
+                                <ul class="payment_methods methods">
+                                    <li class="payment_method_bacs">
+                                        <input id="payment_method_bacs" type="radio" class="input-radio" name="payment_method" value="bacs" checked="checked">
+                                        <label for="payment_method_bacs">Direct Bank Transfer</label>
+                                        <div class="payment_box payment_method_bacs">
+                                            <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped until the funds have cleared in our account.</p>
+                                        </div>
+                                    </li>
+                                    <li class="payment_method_cheque">
+                                        <input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method" value="cheque">
+                                        <label for="payment_method_cheque">Cheque payment</label>
+                                        <div class="payment_box payment_method_cheque">
+                                            <p>Please send your cheque to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
+                                        </div>
+                                    </li>
+                                    <li class="payment_method_paypal">
+                                        <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="paypal">
+                                        <label for="payment_method_paypal">Paypal</label>
+                                        <img src="img/shop/paypal.png" alt="">
+                                        <div class="payment_box payment_method_paypal">
+                                            <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="form-row place-order">
+                                    <input type="submit" name="ecommerce_checkout_place_order" class="btn btn-lg btn-color btn-button" id="place_order" value="Place order">
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div> 
+                 <!-- end order review -->
+           }
+           @* </form>*@
+                </div> <!-- end ecommerce -->
+            </div> <!-- end row -->
+        </div> <!-- end container -->
+    </section> <!-- end checkout -->
+
+    <script type="text/javascript">
+        $("#CheckOutForm").validate({
+
+            rules: {
+                billing_first_name: {
+                    required:true
+                },
+                    billing_address_1: {
+                required: true
+                }
+                //billing_address_1: {
+                //    required: true
+                
+            }
+        });
+    </script>

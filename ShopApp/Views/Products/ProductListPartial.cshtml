@@ -1,0 +1,85 @@
+﻿
+@using ShopApp.Models
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<tblProduct>
+
+
+
+
+
+@{ 
+    foreach (var item in Model)
+    {
+        <div class="col-md col-sm-6 product">
+            <div class="product__img-holder">
+                <a href="@Url.Action("Details","ShoppingCart",new { id= item.ProductId},null)" class="product__link">
+
+                    <img src='@Url.Content("~/img/shop/"+@item.Image)' alt="" class="product__img">
+                    @*<img src="../../img/shop/Iphone1.jpg" alt="" class="product__img">*@
+                    @*<img src="../../img/shop/Iphone2.jpg" alt="" class="product__img-back">*@
+                    @*<img src="~/img/shop/Iphone1.jpg" />*@
+
+                </a>
+                <div class="product__actions">
+                    <a href="@Url.Action("Details","ShoppingCart",new { id= item.ProductId},null)" class="product__quickview">
+                        <i class="ui-eye"></i>
+                        <span>Quick View</span>
+                    </a>
+                    <a href="#" class="product__add-to-wishlist">
+                        <i class="ui-heart"></i>
+                        <span>@Html.ActionLink("Add to Cart", "OrderNow", "ShoppingCart", new {id = item.ProductId},null)</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="product__details">
+                <h3 class="product__title">
+                    <a href="single-product.html">@item.ProductName</a>
+                </h3>
+            </div>
+
+            <span class="product__price">
+                <ins>
+                    <span class="amount">₦@item.Price</span>
+                </ins>
+            </span>
+        </div> <!-- end product -->
+    }
+}
+
+
+@*<div class="pagination clearfix">
+        <nav class="pagination__nav right clearfix">
+            <a href="#" class="pagination__page"><i class="ui-arrow-left"></i></a>
+            <span class="pagination__page pagination__page--current">1</span>
+            <a href="#" class="pagination__page">2</a>
+            <a href="#" class="pagination__page">3</a>
+            <a href="#" class="pagination__page">4</a>
+            <a href="#" class="pagination__page"><i class="ui-arrow-right"></i></a>
+        </nav>
+    </div>*@
+
+
+@*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+<div class="pagination clearfix">
+        <nav class="pagination__nav right clearfix">
+           
+            @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page = Page }))
+
+        </nav>
+</div>*@
+
+
+<div class="clear"></div>
+
+
+
+<p class="woocommerce-result-count">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+
+    <span>
+        @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page = Page, category = ViewBag.category }))
+    </span>
+</p>
+

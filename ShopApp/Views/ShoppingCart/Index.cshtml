@@ -1,0 +1,283 @@
+﻿@using ShopApp.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>Index</h2>*@
+
+
+  <!-- Page Title -->
+<section class="page-title text-center">
+    <div class="container">
+        <h1 class=" heading page-title__title">shopping cart</h1>
+    </div>
+</section> <!-- end page title -->
+<!-- Cart -->
+<section class="section-wrap cart pt-50 pb-40">
+    <div class="container relative">
+        <div class="table-wrap">
+
+
+
+ @{ 
+                if (Session["Cart"] != null)
+                {
+
+
+                    using (Html.BeginForm("UpdateProduct", "ShoppingCart", FormMethod.Post))
+                    {
+
+                     <table class="shop_table cart table">
+                                    <thead>
+                                        <tr>
+                                            <th class="product-name" colspan="2">Product</th>
+                                            <th class="product-price">Price</th>
+                                            <th class="product-quantity">Quantity</th>
+                                            <th class="product-subtotal">Total</th>
+                                            <th class="product-subtotal">Remove Choice</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                    
+                                        @*@{ if (Session["Cart"] == null)
+                                            {
+
+                                                Html.ActionLink("Continue Shopping?", "Index", "Products");
+                                               <h4>No Product Selected</h4>
+                                            }
+                                            else
+                                            {*@
+                           
+                                                    @foreach (var cart in (List<CartViewModel>)Session["Cart"])
+                                                    {
+                                                        <tr class="cart_item">
+                                                            <td class="product-thumbnail">
+
+                                                                <a href="@Url.Action("Details","ShoppingCart",new { id= cart.Product.ProductId},null)" class="product__link">
+
+                                                                    <img src='@Url.Content("~/img/shop/"+@cart.Product.Image)' alt="" class="product__img">
+                                                                    @*<img src="../../img/shop/Iphone1.jpg" alt="" class="product__img">*@
+                                                                    @*<img src="../../img/shop/Iphone2.jpg" alt="" class="product__img-back">*@
+                                                                    @*<img src="~/img/shop/Iphone1.jpg" />*@
+
+                                                                </a>
+
+
+                                                                @*<a href="#">
+                                                                    <img src='@Url.Content("~/img/shop/" + @cart.Product.Image)' alt="">
+                                                                </a>*@
+                                                            </td>
+                                                            <td class="product-name">
+                                                                <a href="#">@cart.Product.ProductName</a>
+                                                                <ul>
+                                                                    <li>Size: @cart.Product.tblModel.Model</li>
+                                                                    <li>Color: @cart.Product.tblColor.Color</li>
+                                                                </ul>
+                                                            </td>
+                                                            <td class="product-price">
+                                                                <span class="amount" id="Prz">₦@cart.Product.Price</span>
+                                                            </td>
+                                                            <td class="product-quantity">
+                                                                <div class="quantity buttons_added">
+                                                                    <input type="button" value="-" id="minusSign" onclick="SubtractQuantity" class="minus">
+                                                                    <input type="number" step="1" min="0" id="QtySelected" name="QtySelected" value="@cart.Quantity" title="Qty" class="input-text qty text">
+                                                                    @*&nbsp;<span id="errMsg"></span>*@
+                                                                    <input type="button" value="+" id="plusSign" onclick="AddQuantity" class="plus">
+                                                                </div>
+                                                            </td>
+                                                            <td class="product-subtotal">
+                                                                <span class="amount">₦@(String.Format("{0:N0}", cart.Quantity * cart.Product.Price))</span>
+                                                                @*<span class="amount">₦@cart.Quantity.ToString()cart.Product.Price.ToString()</span>*@
+                                                            </td>
+                                                            <td class="product-remove">
+                                                                <a href="#" class="remove" title="Remove this item">
+                                                                    <span> @Html.ActionLink("Remove Choice", "Delete", "ShoppingCart", new { id = cart.Product.ProductId }, new { onclick = "return confirm('Are you ready to Remove the Item');" })</span>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                 
+
+                                                @*}
+                                            }*@
+
+                
+                                 </tbody>
+
+                                </table>
+
+                   <input type="submit" value="Update Cart" class="btn btn-md btn-dark btn-button">
+
+                    }
+
+                }
+
+                else{
+                    <h4> No Item Selected!!! </h4>
+                    }
+
+
+}
+
+            @*<input type="submit" name="calc_shipping" value="Update Totals" class="btn btn-md btn-dark btn-button">*@
+
+                      
+
+
+        </div>
+        <div class="row mb-30">
+            <div class="col-lg-5">
+                <div class="coupon">
+                    <input type="text" name="coupon_code" id="coupon_code" class="input-text" value placeholder="Coupon code">
+                    <input type="submit" name="apply_coupon" class="btn btn-md btn-dark btn-button" value="Apply">
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="actions">
+                 <div class="btn btn-md btn-dark btn-button">
+                     @Html.ActionLink("Continue Shopping?", "Index", "Products")
+                 </div>
+                   
+                    <div class="wc-proceed-to-checkout">
+
+                        @Html.ActionLink("Check Out", "CheckOut", "ShoppingCart", new {@class= "btn btn-md btn-color btn-button" })
+
+
+                        @*<a href="checkout.html" class="btn btn-md btn-color btn-button"><span>proceed to checkout</span></a>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-between">
+            <div class="col-lg-6 shipping-calculator-form">
+                <h2 class="uppercase mb-30">Calculate Shipping</h2>
+                <p class="form-row form-row-wide">
+                    <select name="calc_shipping_country" id="calc_shipping_country" class="country_to_state" rel="calc_shipping_state">
+                        <option>Select a country…</option>
+                        <option value="AF">Afghanistan</option>
+                        <option value="AX">Åland Islands</option>
+                        <option value="AL">Albania</option>
+                      
+                      
+                    </select>
+                </p>
+                <div class="row row-24">
+                    <div class="col-md-6">
+                        <p class="form-row form-row-wide">
+                            <input type="text" class="input-text" value placeholder="State / county" name="calc_shipping_state" id="calc_shipping_state">
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="form-row form-row-wide">
+                            <input type="text" class="input-text" value placeholder="Postcode" name="calc_shipping_postcode" id="calc_shipping_postcode">
+                        </p>
+                    </div>
+                </div>
+                <p>
+                    <input type="submit" name="calc_shipping" value="Update Totals" class="btn btn-md btn-dark btn-button">
+                </p>
+            </div> <!-- end col shipping calculator -->
+            <div class="col-lg-4">
+                <div class="cart_totals">
+                    <h2 class="uppercase mb-20">Cart Totals</h2>
+                    <table class="table shop_table">
+                        <tbody>
+                            <tr class="cart-subtotal">
+                                <th>Cart Subtotal</th>
+                                <td>
+
+
+
+                                    @if (Session["Cart"]==null)
+                                    {
+                                    Response.Redirect(Url.Content("/Home/Index"));
+                                    }
+
+                                    @{
+                                      
+
+                                        List<CartViewModel> temp = (List<CartViewModel>)Session["Cart"];
+                                        var TotalAmt = temp.Sum(x => x.Quantity * x.Product.Price);
+
+                                          if (Session["Cart"]==null)
+                                        {
+                                            Response.Redirect(Url.Content("/Home/Index"));
+                                        }
+                                    }
+
+
+
+
+                                    <span class="amount" id="SubAmt">₦@TotalAmt</span>
+                                </td>
+                            </tr>
+                            <tr class="shipping">
+                                <th>Shipping</th>
+                                <td>
+                                    <span>Free Shipping</span>
+                                </td>
+                            </tr>
+                            <tr class="order-total">
+                                <th>Order Total</th>
+                                <td>
+
+
+                                    <strong><span class="amount">₦@TotalAmt</span></strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!-- end col cart totals -->
+        </div> <!-- end row -->
+
+    </div> <!-- end container -->
+</section> <!-- end cart -->
+
+
+
+
+
+@*<script>
+
+    $('#PlusSign').click(function () {
+        $('#').val=
+    });
+        
+    //function AddQuantity() {
+
+    //    //var newQty = $(".SubtractQuantity").val();
+
+    //    //newQty = newQty-1;
+    //    //return newQty;
+    //    var V = $('#QtySelected').val;
+    //    var P = $('#prz').val;
+
+    //    $('#SubAmt').val = V * p;
+
+    //}
+
+ 
+</script>*@
+
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $("#QtySelected").keypress(function (x){
+
+            if (x.which != 8 && x.which != 0 && (x.which < 48 || x.which > 57)){
+
+                $("#errMsg").html("Enter Number Values alone").show().fadeOut("slow");
+                return false;
+            }
+        });
+
+        });
+</script>

@@ -1,0 +1,44 @@
+﻿@using ShopApp.Models
+@model List<tblNew>
+
+
+@{
+    foreach (var item in Model)
+    {
+        <article class="entry">
+
+            <div class="entry__header">
+                <h2 class="entry__title">
+                    <a href="blog-single.html">@item.Title</a>
+                </h2>
+                <ul class="entry__meta">
+                    <li class="entry__meta-date">
+                        <span class="entry__meta-label">date: </span>@item.CreatedDate.ToString();
+                    </li>
+                    <li class="entry__meta-category">
+                        <span class="entry__meta-label">categories: </span><a href="#">Fashion</a>
+                        <span class="entry__meta-label"></span><a href="#">@item.ShortDescription</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="entry__img-holder">
+                <a href="#">
+
+                    <img src='@Url.Content("../../img/blog/"+@item.Image)' alt="" class="entry__img">
+                </a>
+            </div>
+            @*<img src="~/img/blog/post_1.jpg" />*@
+            <div class="entry__body">
+                <div class="entry__excerpt">
+                    <p>@item.Content</p>
+                    <div class="entry__read-more">
+                        <a href="blog-single.html" class="entry__read-more-link">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+        </article>
+    }
+
+}

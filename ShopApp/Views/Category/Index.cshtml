@@ -1,0 +1,103 @@
+﻿@*@model IEnumerable<ShopApp.Models.tblCategory>*@
+
+
+
+@using ShopApp.Models
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<tblCategory>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="row">
+  
+    <div class="col-lg-10">
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.CategoryId }) |
+
+                        @*@Html.ActionLink("Delete", "Delete", new { id=item.CategoryId })*@
+
+                        @using (Html.BeginForm("Delete", "Category", new { id = item.CategoryId }, FormMethod.Post, new { onsubmit = "return confirm('Are You sure, You want to delete');" }))
+                        {
+                            @Html.AntiForgeryToken();
+
+                            <button type"submit" id="" value="Delete" style="width:50px;height:20px;background:none !important;border:none; padding:0 !important;font:inherit;border: 1px solid red" />
+                        }
+
+
+
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-lg-2">
+        <div class="clear"></div>
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+
+        <div class="div-Pagination">
+            @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page = Page }))
+        </div>
+    </div>
+</div>
+
+
+
+
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CategoryId }) |
+
+                    @Html.ActionLink("Delete", "Delete", new { id=item.CategoryId })
+
+                    @using (Html.BeginForm("Delete", "Category", new { id = item.CategoryId }, FormMethod.Post, new { onsubmit = "return confirm('Are You sure, You want to delete');" }))
+                    {
+                        @Html.AntiForgeryToken();
+
+                        <button type"submit" id="" value="Delete" style="width:50px;height:20px;display:inline;color:red" />
+                    }
+
+
+
+                </td>
+            </tr>
+        }
+
+    </table>*@

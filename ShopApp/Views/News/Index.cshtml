@@ -1,0 +1,141 @@
+﻿
+@*@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>*@
+
+<section class="section-wrap pb-50">
+    <div class="container">
+
+        <!-- Breadcrumbs -->
+        <ol class="breadcrumbs">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+            <li>
+                <a href="index.html">News</a>
+            </li>
+            <li class="active">
+                Blog Classic
+            </li>
+        </ol>
+
+        <div class="row">
+
+            <!-- content -->
+            <div class="col-lg-8 mb-50">
+
+                <!-- standard post -->
+             @Html.Action("NewsListPartial","News")
+            
+             <!-- end standard post -->
+               
+                <!-- Pagination -->
+
+
+                <div class="pagination clearfix">
+                    <nav class="pagination__nav right clearfix">
+                        <a href="#" class="pagination__page"><i class="ui-arrow-left"></i></a>
+                        <span class="pagination__page pagination__page--current">1</span>
+                        <a href="#" class="pagination__page">2</a>
+                        <a href="#" class="pagination__page">3</a>
+                        <a href="#" class="pagination__page">4</a>
+                        <a href="#" class="pagination__page"><i class="ui-arrow-right"></i></a>
+                    </nav>
+                </div>
+
+            </div> <!-- end col -->
+            <!-- Sidebar -->
+            <aside class="col-lg-4 sidebar">
+
+                <div class="sidebar__box">
+
+                    <!-- About -->
+                    <div class="widget widget_text">
+                        <h4 class="widget-title">About</h4>
+                        <div class="textwidget">
+                            <p>
+                                Namira is a very slick and clean e-commerce template with endless possibilities. Creating an awesome clothes store with this Theme is easy than you can imagine.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="widget widget_categories">
+                        <h4 class="widget-title">Categories</h4>
+                        <ul>
+                            <li>
+                                <a href="#">Business</a>
+                            </li>
+                            <li>
+                                <a href="#">Science</a>
+                            </li>
+                            <li>
+                                <a href="#">Sport</a>
+                            </li>
+                            <li>
+                                <a href="#">Politics</a>
+                            </li>
+                            <li>
+                                <a href="#">Lifestyle</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Recent Posts -->
+                    <div class="widget widget_recent_entries">
+                        <h4 class="widget-title">Recent Posts</h4>
+                        <ul>
+                            <li>
+                                <a href="#">For the Love of clothes and Fashion Store</a>
+                                <span class="post-date">July 7, 2017</span>
+                            </li>
+                            <li>
+                                <a href="#">New Web Site for Fashion Retailers</a>
+                                <span class="post-date">July 7, 2017</span>
+                            </li>
+                            <li>
+                                <a href="#">Personal Styles of 10 Successful Enterpreneurs</a>
+                                <span class="post-date">July 7, 2017</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Follow Us -->
+                    <div class="widget widget-follow">
+                        <h4 class="widget-title">Follow Us</h4>
+                        <ul>
+                            <li><a href="#">Facebook</a></li>
+                            <li><a href="#">Instagram</a></li>
+                            <li><a href="#">Twitter</a></li>
+                            <li><a href="#">Google+</a></li>
+                            <li><a href="#">Pinterest</a></li>
+                        </ul>
+                    </div>
+
+
+                    <!-- Tags -->
+                    <div class="widget widget_tags clearfix">
+                        <h4 class="widget-title">Tag Cloud</h4>
+                        <a href="#">Multi-purpose</a>
+                        <a href="#">Creative</a>
+                        <a href="#">Elegant</a>
+                        <a href="#">Clean</a>
+                        <a href="#">Modern</a>
+                        <a href="#">Responsive</a>
+                        <a href="#">E-commerce</a>
+                        <a href="#">WordPress</a>
+                        <a href="#">Woocommerce</a>
+                        <a href="#">Store</a>
+                        <a href="#">Business</a>
+                    </div>
+
+                </div> <!-- end sidebar box -->
+            </aside> <!-- end sidebar -->
+
+        </div> <!-- end row -->
+    </div> <!-- end container -->
+</section> <!-- end blog standard -->
+
